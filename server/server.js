@@ -95,7 +95,7 @@ app.post('/reset', (req, res) => {
 // Admin Login (Simple)
 app.post('/login', (req, res) => {
     const { password } = req.body;
-    if (password === 'admin123') {
+    if (password === 'admin123optivus') {
         res.json({ success: true, token: 'admin-authorized' });
     } else {
         res.status(401).json({ success: false, message: 'Invalid password' });
