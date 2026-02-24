@@ -20,7 +20,7 @@ export const getTeams = async () => {
         .order('score', { ascending: false });
 
     if (error) throw error;
-    
+
     // Parse members JSON for each team
     return (data || []).map(team => ({
         ...team,
@@ -43,7 +43,7 @@ export const addTeam = async (team) => {
 
     console.log('Insert result:', { data, error });
     if (error) throw error;
-    
+
     // Parse members back to array
     if (data && data.members) {
         data.members = JSON.parse(data.members);
@@ -60,7 +60,7 @@ export const updateTeam = async (id, updates) => {
     if (updates.members) {
         updateData.members = JSON.stringify(updates.members);
     }
-    
+
     const { data, error } = await supabase
         .from('teams')
         .update(updateData)
@@ -69,7 +69,7 @@ export const updateTeam = async (id, updates) => {
         .single();
 
     if (error) throw error;
-    
+
     if (data && data.members) {
         data.members = JSON.parse(data.members);
     }
