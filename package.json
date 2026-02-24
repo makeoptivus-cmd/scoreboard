@@ -1,0 +1,13 @@
+{
+    "name": "connection-scoreboard",
+    "version": "1.0.0",
+    "description": "Root configuration for Connection Scoreboard",
+    "scripts": {
+        "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+        "start": "cd server && npm start",
+        "dev": "concurrently \"cd server && node --watch server.js\" \"cd client && npm run dev\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
