@@ -1,11 +1,7 @@
-import { getTeams, addTeam as addTeamToStore } from './_data.js';
-
-const sortTeams = (teams) => {
-    return [...teams].sort((a, b) => b.score - a.score);
-};
+import { getTeams, addTeam } from './_supabase.js';
 
 // Main handler
-export default function handler(req, res) {
+export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -22,9 +18,10 @@ export default function handler(req, res) {
     // GET all teams
     if (req.method === 'GET') {
         try {
-            const teams = getTeams();
-            return res.status(200).json(sortTeams(teams));
+            const teams = await getTeams();
+            return res.status(200).json(teams);
         } catch (error) {
+            console.error('GET teams error:', error);
             return res.status(500).json({ error: 'Failed to fetch teams' });
         }
     }
@@ -33,16 +30,15 @@ export default function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const { name, members, score, round } = req.body;
-            const newTeam = {
-                id: Date.now().toString(),
+            const newTeam = await addTeam({
                 name,
                 members: members || [],
                 score: Number(score) || 0,
                 round: Number(round) || 1
-            };
-            addTeamToStore(newTeam);
+            });
             return res.status(201).json(newTeam);
         } catch (error) {
+            console.error('POST team error:', error);
             return res.status(500).json({ error: 'Failed to add team' });
         }
     }

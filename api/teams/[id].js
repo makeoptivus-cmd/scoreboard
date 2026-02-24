@@ -1,7 +1,7 @@
-import { getTeams, updateTeam as updateTeamInStore, deleteTeam as deleteTeamFromStore } from '../_data.js';
+import { updateTeam, deleteTeam } from '../_supabase.js';
 
 // Main handler
-export default function handler(req, res) {
+export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -21,21 +21,18 @@ export default function handler(req, res) {
     if (req.method === 'PUT') {
         try {
             const { name, members, score, round } = req.body;
-            const teams = getTeams();
-            const existing = teams.find(t => t.id === id);
-
-            if (existing) {
-                const updated = updateTeamInStore(id, {
-                    name,
-                    members,
-                    score: Number(score),
-                    round: Number(round) || existing.round || 1
-                });
-                return res.status(200).json(updated);
-            } else {
+            const updated = await updateTeam(id, {
+                name,
+                members,
+                score: Number(score),
+                round: Number(round) || 1
+            });
+            if (!updated) {
                 return res.status(404).json({ error: 'Team not found' });
             }
+            return res.status(200).json(updated);
         } catch (error) {
+            console.error('PUT team error:', error);
             return res.status(500).json({ error: 'Failed to update team' });
         }
     }
@@ -43,9 +40,10 @@ export default function handler(req, res) {
     // DELETE team
     if (req.method === 'DELETE') {
         try {
-            deleteTeamFromStore(id);
+            await deleteTeam(id);
             return res.status(200).json({ message: 'Team deleted' });
         } catch (error) {
+            console.error('DELETE team error:', error);
             return res.status(500).json({ error: 'Failed to delete team' });
         }
     }

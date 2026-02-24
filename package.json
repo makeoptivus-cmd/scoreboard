@@ -7,6 +7,9 @@
         "start": "cd server && npm start",
         "dev": "concurrently \"cd server && node --watch server.js\" \"cd client && npm run dev\""
     },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.39.0"
+    },
     "devDependencies": {
         "concurrently": "^8.2.2"
     }

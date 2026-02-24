@@ -1,6 +1,6 @@
-import { resetTeams as resetTeamsInStore } from './_data.js';
+import { resetTeams } from './_supabase.js';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -16,9 +16,10 @@ export default function handler(req, res) {
 
     if (req.method === 'POST') {
         try {
-            resetTeamsInStore();
+            await resetTeams();
             return res.status(200).json({ message: 'All teams reset' });
         } catch (error) {
+            console.error('Reset teams error:', error);
             return res.status(500).json({ error: 'Failed to reset teams' });
         }
     }
