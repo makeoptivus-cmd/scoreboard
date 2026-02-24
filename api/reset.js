@@ -1,17 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = path.join(__dirname, '../data.json');
-
-const writeTeams = (teams) => {
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(teams, null, 2));
-    } catch (error) {
-        console.error('Error writing teams:', error);
-    }
-};
+import { resetTeams as resetTeamsInStore } from './_data.js';
 
 export default function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -29,7 +16,7 @@ export default function handler(req, res) {
 
     if (req.method === 'POST') {
         try {
-            writeTeams([]);
+            resetTeamsInStore();
             return res.status(200).json({ message: 'All teams reset' });
         } catch (error) {
             return res.status(500).json({ error: 'Failed to reset teams' });

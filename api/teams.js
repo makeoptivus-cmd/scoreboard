@@ -1,34 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = path.join(__dirname, '../data.json');
-
-// Helper functions
-const readTeams = () => {
-    try {
-        if (!fs.existsSync(DATA_FILE)) {
-            return [];
-        }
-        const data = fs.readFileSync(DATA_FILE, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Error reading teams:', error);
-        return [];
-    }
-};
-
-const writeTeams = (teams) => {
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(teams, null, 2));
-    } catch (error) {
-        console.error('Error writing teams:', error);
-    }
-};
+import { getTeams, addTeam as addTeamToStore } from './_data.js';
 
 const sortTeams = (teams) => {
-    return teams.sort((a, b) => b.score - a.score);
+    return [...teams].sort((a, b) => b.score - a.score);
 };
 
 // Main handler
@@ -49,7 +22,7 @@ export default function handler(req, res) {
     // GET all teams
     if (req.method === 'GET') {
         try {
-            const teams = readTeams();
+            const teams = getTeams();
             return res.status(200).json(sortTeams(teams));
         } catch (error) {
             return res.status(500).json({ error: 'Failed to fetch teams' });
@@ -67,9 +40,7 @@ export default function handler(req, res) {
                 score: Number(score) || 0,
                 round: Number(round) || 1
             };
-            const teams = readTeams();
-            teams.push(newTeam);
-            writeTeams(teams);
+            addTeamToStore(newTeam);
             return res.status(201).json(newTeam);
         } catch (error) {
             return res.status(500).json({ error: 'Failed to add team' });

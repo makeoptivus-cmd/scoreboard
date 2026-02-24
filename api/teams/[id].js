@@ -1,31 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_FILE = path.join(__dirname, '../../data.json');
-
-// Helper functions
-const readTeams = () => {
-    try {
-        if (!fs.existsSync(DATA_FILE)) {
-            return [];
-        }
-        const data = fs.readFileSync(DATA_FILE, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error('Error reading teams:', error);
-        return [];
-    }
-};
-
-const writeTeams = (teams) => {
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(teams, null, 2));
-    } catch (error) {
-        console.error('Error writing teams:', error);
-    }
-};
+import { getTeams, updateTeam as updateTeamInStore, deleteTeam as deleteTeamFromStore } from '../_data.js';
 
 // Main handler
 export default function handler(req, res) {
@@ -48,19 +21,17 @@ export default function handler(req, res) {
     if (req.method === 'PUT') {
         try {
             const { name, members, score, round } = req.body;
-            let teams = readTeams();
-            const index = teams.findIndex(t => t.id === id);
+            const teams = getTeams();
+            const existing = teams.find(t => t.id === id);
 
-            if (index !== -1) {
-                teams[index] = {
-                    ...teams[index],
+            if (existing) {
+                const updated = updateTeamInStore(id, {
                     name,
                     members,
                     score: Number(score),
-                    round: Number(round) || teams[index].round || 1
-                };
-                writeTeams(teams);
-                return res.status(200).json(teams[index]);
+                    round: Number(round) || existing.round || 1
+                });
+                return res.status(200).json(updated);
             } else {
                 return res.status(404).json({ error: 'Team not found' });
             }
@@ -72,9 +43,7 @@ export default function handler(req, res) {
     // DELETE team
     if (req.method === 'DELETE') {
         try {
-            let teams = readTeams();
-            teams = teams.filter(t => t.id !== id);
-            writeTeams(teams);
+            deleteTeamFromStore(id);
             return res.status(200).json({ message: 'Team deleted' });
         } catch (error) {
             return res.status(500).json({ error: 'Failed to delete team' });
