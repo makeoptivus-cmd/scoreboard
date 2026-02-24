@@ -31,28 +31,28 @@ const Scoreboard = ({ teams }) => {
 
     return (
         <div className="container" style={{ paddingBottom: '4rem' }}>
-            <h2 style={{ 
-                textAlign: 'center', 
-                fontSize: isMobile ? '1.75rem' : '2.5rem', 
+            <h2 style={{
+                textAlign: 'center',
+                fontSize: isMobile ? '1.75rem' : '2.5rem',
                 marginBottom: '2rem',
                 margin: isMobile ? '1rem 0' : '2rem 0'
             }} className="glow-text">
                 Live Scores
             </h2>
 
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
                 flexWrap: 'wrap',
-                gap: isMobile ? '0.5rem' : '1rem', 
-                marginBottom: '2rem' 
+                gap: isMobile ? '0.5rem' : '1rem',
+                marginBottom: '2rem'
             }}>
                 {[1, 2, 3, 4, 5].map(round => (
                     <button
                         key={round}
                         onClick={() => setSelectedRound(round)}
                         className={`btn ${selectedRound === round ? 'btn-primary' : 'btn-outline'}`}
-                        style={{ 
+                        style={{
                             minWidth: isMobile ? '65px' : '80px',
                             padding: isMobile ? '0.5rem 0.75rem' : '0.75rem 1.5rem',
                             fontSize: isMobile ? '0.85rem' : '1rem'
@@ -78,9 +78,9 @@ const Scoreboard = ({ teams }) => {
                             ...getRowStyle(index)
                         }}
                     >
-                        <div style={{ 
-                            display: 'flex', 
-                            alignItems: isMobile ? 'flex-start' : 'center', 
+                        <div style={{
+                            display: 'flex',
+                            alignItems: isMobile ? 'flex-start' : 'center',
                             gap: isMobile ? '1rem' : '2rem',
                             width: isMobile ? '100%' : 'auto'
                         }}>
@@ -88,9 +88,9 @@ const Scoreboard = ({ teams }) => {
                                 {getRankIcon(index)}
                             </div>
                             <div style={{ flex: 1 }}>
-                                <h3 style={{ 
-                                    margin: 0, 
-                                    fontSize: isMobile ? (index === 0 ? '1.3rem' : '1.1rem') : (index === 0 ? '2rem' : '1.5rem'), 
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: isMobile ? (index === 0 ? '1.3rem' : '1.1rem') : (index === 0 ? '2rem' : '1.5rem'),
                                     color: index === 0 ? 'var(--gold)' : 'white',
                                     wordBreak: 'break-word'
                                 }}>
@@ -102,14 +102,14 @@ const Scoreboard = ({ teams }) => {
                                         const memberPhone = typeof member === 'string' ? '' : member.phone;
                                         return (
                                             (member && (typeof member === 'string' ? member : member.name)) && (
-                                                <span key={i} style={{ 
-                                                    fontSize: isMobile ? '0.75rem' : '0.9rem', 
-                                                    color: 'var(--text-secondary)', 
-                                                    background: 'rgba(255,255,255,0.05)', 
-                                                    padding: isMobile ? '2px 6px' : '2px 8px', 
-                                                    borderRadius: '4px', 
-                                                    display: 'flex', 
-                                                    alignItems: 'center', 
+                                                <span key={i} style={{
+                                                    fontSize: isMobile ? '0.75rem' : '0.9rem',
+                                                    color: 'var(--text-secondary)',
+                                                    background: 'rgba(255,255,255,0.05)',
+                                                    padding: isMobile ? '2px 6px' : '2px 8px',
+                                                    borderRadius: '4px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
                                                     gap: '0.5rem',
                                                     whiteSpace: 'nowrap',
                                                     overflow: 'hidden',
@@ -124,15 +124,15 @@ const Scoreboard = ({ teams }) => {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ 
+                        <div style={{
                             textAlign: isMobile ? 'left' : 'right',
                             minWidth: isMobile ? '80px' : 'auto'
                         }}>
-                            <span style={{ 
-                                fontSize: isMobile ? (index === 0 ? '2rem' : '1.75rem') : (index === 0 ? '3rem' : '2.5rem'), 
-                                fontWeight: '800', 
-                                fontFamily: 'monospace', 
-                                color: index === 0 ? 'var(--accent-secondary)' : 'white' 
+                            <span style={{
+                                fontSize: isMobile ? (index === 0 ? '2rem' : '1.75rem') : (index === 0 ? '3rem' : '2.5rem'),
+                                fontWeight: '800',
+                                fontFamily: 'monospace',
+                                color: index === 0 ? 'var(--accent-secondary)' : 'white'
                             }}>
                                 {team.score}
                             </span>

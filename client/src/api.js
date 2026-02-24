@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : '/api';
+const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
 export const getTeams = async () => {
     try {

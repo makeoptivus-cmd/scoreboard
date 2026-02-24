@@ -75,18 +75,18 @@ const AdminPanel = ({ teams, onTeamUpdated, onTeamDeleted }) => {
                     ⚠️ CRITICAL: Server update required. Please STOP the terminal (Ctrl+C) and run `npm run dev` again to enable Round features.
                 </div>
             )}
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: isMobile ? 'flex-start' : 'center', 
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: isMobile ? 'flex-start' : 'center',
                 marginBottom: '2rem',
                 flexDirection: isMobile ? 'column' : 'row',
                 gap: isMobile ? '1rem' : '0'
             }}>
                 <h2 style={{ marginTop: 0, fontSize: isMobile ? '1.5rem' : '2rem' }}>Manage Teams</h2>
-                <div style={{ 
-                    display: 'flex', 
-                    gap: isMobile ? '0.5rem' : '1rem', 
+                <div style={{
+                    display: 'flex',
+                    gap: isMobile ? '0.5rem' : '1rem',
                     alignItems: 'center',
                     width: isMobile ? '100%' : 'auto',
                     flexWrap: 'wrap'
@@ -95,8 +95,8 @@ const AdminPanel = ({ teams, onTeamUpdated, onTeamDeleted }) => {
                         value={filterRound}
                         onChange={(e) => setFilterRound(e.target.value)}
                         className="btn btn-outline"
-                        style={{ 
-                            background: 'transparent', 
+                        style={{
+                            background: 'transparent',
                             color: 'white',
                             flex: isMobile ? 1 : 'auto',
                             fontSize: isMobile ? '0.9rem' : '1rem',

@@ -27,13 +27,13 @@ const Header = ({ onAdminClick, showAdmin, onLogout, isAdminLoggedIn }) => {
         }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.5rem' : '1rem' }}>
                 <Music size={isMobile ? 24 : 32} color="var(--accent-primary)" />
-                <h1 style={{ 
-                    margin: 0, 
-                    fontSize: isMobile ? '1.2rem' : '1.5rem', 
-                    fontWeight: 700, 
-                    background: 'linear-gradient(to right, #fff, #a0a0b0)', 
-                    WebkitBackgroundClip: 'text', 
-                    WebkitTextFillColor: 'transparent' 
+                <h1 style={{
+                    margin: 0,
+                    fontSize: isMobile ? '1.2rem' : '1.5rem',
+                    fontWeight: 700,
+                    background: 'linear-gradient(to right, #fff, #a0a0b0)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
                 }}>
                     True Sight
                 </h1>

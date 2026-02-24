@@ -72,12 +72,12 @@ const TeamForm = ({ onSubmit, initialData = null, onCancel }) => {
                 <select
                     value={round}
                     onChange={(e) => setRound(Number(e.target.value))}
-                    style={{ 
-                        width: '100%', 
-                        padding: '0.8rem', 
-                        borderRadius: '8px', 
-                        border: '1px solid rgba(255,255,255,0.1)', 
-                        background: 'rgba(255,255,255,0.05)', 
+                    style={{
+                        width: '100%',
+                        padding: '0.8rem',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        background: 'rgba(255,255,255,0.05)',
                         color: 'white',
                         fontSize: isMobile ? '16px' : '1rem'
                     }}
