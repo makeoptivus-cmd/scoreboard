@@ -14,7 +14,7 @@ export default function handler(req, res) {
 
     if (req.method === 'POST') {
         const { password } = req.body;
-        if (password === 'admin123optivus') {
+        if (password === 'admin123optivus1') {
             return res.status(200).json({ success: true, token: 'admin-authorized' });
         } else {
             return res.status(401).json({ success: false, message: 'Invalid password' });
